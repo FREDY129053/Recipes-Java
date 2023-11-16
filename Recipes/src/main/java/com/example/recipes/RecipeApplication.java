@@ -14,7 +14,8 @@ import java.util.Objects;
 public class RecipeApplication extends Application {
   @Override
   public void start(Stage stage) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(RecipeApplication.class.getResource("recipe-create-view.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(RecipeApplication.class.getResource("main_recipes_window.fxml"));
+//    FXMLLoader fxmlLoader = new FXMLLoader(RecipeApplication.class.getResource("recipe_small_card.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 800, 600);
 
     stage.setTitle("Hello!");

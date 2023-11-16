@@ -23,6 +23,8 @@ public class RecipeController implements Initializable {
 
   public VBox create_recipe_widgets;
   @FXML
+  public VBox steps;
+  @FXML
   private AnchorPane create_recipes_widgets;
   // Label чтобы проверить что пользователь поменялся
   @FXML
@@ -81,9 +83,11 @@ public class RecipeController implements Initializable {
   private FlowPane vertical_ingredients;
 
 // Добавление ингредиентов в панель ингредиентов
+
   // Список для формирования выпадающего списка в каком объеме будет ингредиент
   private final String[] count = {"кг", "гр", "л", "мл"};
   // Список для формирования выпадающего списка ингредиентов
+  // TO DO не массив строк, а отдельный класс ингредиента
   private final String[] ingredients_list = {"помидор", "молоко", "лук", "сахар"};
 
   // Функция добавления ингредиентов в список "Ингредиенты"
@@ -103,8 +107,8 @@ public class RecipeController implements Initializable {
     }
 
     // Создание выпадающих списков
-    ObservableList<String> count_list = FXCollections.observableArrayList(new ArrayList<String>(Arrays.asList(count)));
-    ObservableList<String> ingredients_from_db = FXCollections.observableArrayList(new ArrayList<String>(Arrays.asList(ingredients_list)));
+    ObservableList<String> count_list = FXCollections.observableArrayList(new ArrayList<>(Arrays.asList(count)));
+    ObservableList<String> ingredients_from_db = FXCollections.observableArrayList(new ArrayList<>(Arrays.asList(ingredients_list)));
 
     // Поля для выбора ингредиентов, ввода кол-ва, выбора кол-ва
     HBox ingred = new HBox();
@@ -140,5 +144,14 @@ public class RecipeController implements Initializable {
   {
     // Подгон виджетов по ширине чтобы убрать скролл влево-впарво
     ingredients.setFitToWidth(true);
+
+
+    AnchorPane.setTopAnchor(steps, 10.0);
+    AnchorPane.setBottomAnchor(steps, 10.0);
+    AnchorPane.setLeftAnchor(steps, 10.0);
+    AnchorPane.setRightAnchor(steps, 10.0);
+
+    for (int i = 0; i < 51; i++)
+      steps.getChildren().add(new Label("Ok" + i));
   }
 }

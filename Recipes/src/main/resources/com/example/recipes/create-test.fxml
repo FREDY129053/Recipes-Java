@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<ScrollPane fx:id="create_recipe_ScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.recipes.CreateTest">
+   <content>
+      <VBox fx:id="create_recipe_VBox" prefHeight="599.0" prefWidth="785.0">
+         <children>
+            <AnchorPane fx:id="create_recipe_AnchorPane" prefHeight="595.0" prefWidth="785.0">
+               <children>
+                  <ScrollPane fx:id="Scroll_2" layoutX="86.0" layoutY="370.0" prefHeight="159.0" prefWidth="561.0" style="-fx-border-width: 0;">
+                     <content>
+                        <VBox fx:id="VBox_Scroll" prefHeight="154.0" prefWidth="550.0" />
+                     </content>
+                  </ScrollPane>
+                  <Button layoutX="341.0" layoutY="547.0" mnemonicParsing="false" text="Button" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
