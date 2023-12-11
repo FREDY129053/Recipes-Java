@@ -5,7 +5,11 @@ import javafx.fxml.FXML;
 import com.example.recipes.TmpRecipeClass;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -25,10 +29,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Optional;
+import java.util.*;
 
 public class ShowDetailRecipe {
   @FXML
@@ -221,9 +222,41 @@ public class ShowDetailRecipe {
         }
       });
 
+      Button changeRecipe = new Button("Изменить рецепт");
+      changeRecipe.setFocusTraversable(false);
+
+      if (!Objects.equals(user, recipe.author)) {
+        changeRecipe.setVisible(false);
+      } else {
+        changeRecipe.setVisible(true);
+        changeRecipe.setOnAction(event -> {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("crud_recipes.fxml"));
+          Parent root = null;
+          try {
+            root = loader.load();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+          CrudRecipes controller = loader.getController();
+          try {
+            controller.setRecipe(recipe);
+          } catch (SQLException | IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+          }
+
+          Stage curr = (Stage) changeRecipe.getScene().getWindow();
+
+          Stage stage = new Stage();
+          stage.setScene(new Scene(root, 800, 600));
+          stage.show();
+          curr.close();
+        });
+      }
+
       add.setFocusTraversable(false);
       VBox.setMargin(add, new Insets(15, 0, 20, 360));
-      addToCart.getChildren().add(add);
+      VBox.setMargin(changeRecipe, new Insets(15, 0, 20, 340));
+      addToCart.getChildren().addAll(add, changeRecipe);
       main_Vbox.getChildren().addAll(full_window, addToCart);
     } else {
       main_Vbox.getChildren().add(full_window);

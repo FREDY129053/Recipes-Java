@@ -64,10 +64,12 @@ public class AddRecipe {
             TmpRecipeClass recipe = parse.getRecipe();
             recipe.setAuthor(user);
             controller.setRecipe(recipe);
+            Stage curr = (Stage) auto_recipe_btn.getScene().getWindow();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 855, 600));
             stage.show();
+            curr.close();
           } catch (IOException e) {
             throw new RuntimeException(e);
           }

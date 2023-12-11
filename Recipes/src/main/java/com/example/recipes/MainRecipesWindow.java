@@ -175,7 +175,43 @@ public class MainRecipesWindow {
         }
       });
 
-      logining_user_options.getChildren().addAll(addRecipe, favorites, cart, logOut);
+      Button myRecipes = new Button("Мои рецепты");
+      myRecipes.setOnAction(event -> {
+        try {
+          var allAuthor = dataBase.getAllUserRecipesID(user);
+          ArrayList<TmpRecipeClass> recipes = new ArrayList<>();
+          for (int i : allAuthor) {
+            if (i == 17 || i == 18){
+              continue;
+            }
+            recipes.add(dataBase.getRecipe(i));
+          }
+          Stage stage = new Stage();
+          FlowPane pane = new FlowPane();
+          VBox paneMain = new VBox();
+
+          VBox.setMargin(pane, new Insets(15, 0, 0, 60));
+          ScrollPane scroll = new ScrollPane();
+
+          if (recipes.size() != 0) {
+            Drawer drawer = new Drawer();
+            drawer.clearNode(pane);
+            drawer.drawAllRecipes(recipes, pane, user, false);
+          } else {
+            pane.getChildren().add(new Label("Нет Созданных рецептов!"));
+          }
+
+          paneMain.getChildren().add(pane);
+          scroll.setContent(paneMain);
+          stage.setScene(new Scene(scroll, 430, 600));
+          stage.setTitle("Мои рецепты");
+          stage.show();
+        } catch (SQLException | ClassNotFoundException e) {
+          throw new RuntimeException(e);
+        }
+      });
+
+      logining_user_options.getChildren().addAll(addRecipe, myRecipes, favorites, cart, logOut);
     }
 
     enter_btn.setOnAction(event -> {

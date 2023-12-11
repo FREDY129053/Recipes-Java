@@ -107,7 +107,10 @@ public class Parser {
         difficult += "Тяжело";
       }
 
-      return new TmpRecipeClass(dishPhoto, dishName, cookTime, category, difficult, ingredientName, ingredientCount, ingredientCountName, stepsDescriptionsList, stepsPhotosList);
+      TmpRecipeClass finalRec =  new TmpRecipeClass(dishPhoto, dishName, cookTime, category, difficult, ingredientName, ingredientCount, ingredientCountName, stepsDescriptionsList, stepsPhotosList);
+      finalRec.setCalInfo(0, 0, 0, 0);
+
+      return finalRec;
     } catch (IOException e) {
       isError = true;
     }

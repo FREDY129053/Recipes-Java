@@ -121,16 +121,20 @@ public class PreviewRecipeCard {
     category.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
 
     HBox kbzu = new HBox();
-    Label k = new Label(Math.round(recipe.calInfo.get(0)) + " ккал");
-    Label b = new Label("Белков " + Math.round(recipe.calInfo.get(1)) + " гр");
-    Label z = new Label("Жиров " + Math.round(recipe.calInfo.get(2)) + " гр");
-    Label u = new Label("Углеводов " + Math.round(recipe.calInfo.get(3)) + " гр");
-    k.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
-    b.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
-    z.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
-    u.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
-    kbzu.getChildren().addAll(k, b, z, u);
-    kbzu.setSpacing(20);
+    if (Math.round(recipe.calInfo.get(0)) == 0 && Math.round(recipe.calInfo.get(1)) == 0 && Math.round(recipe.calInfo.get(2)) == 0 && Math.round(recipe.calInfo.get(3)) == 0) {
+      System.out.println("gg");
+    } else {
+      Label k = new Label(Math.round(recipe.calInfo.get(0)) + " ккал");
+      Label b = new Label("Белков " + Math.round(recipe.calInfo.get(1)) + " гр");
+      Label z = new Label("Жиров " + Math.round(recipe.calInfo.get(2)) + " гр");
+      Label u = new Label("Углеводов " + Math.round(recipe.calInfo.get(3)) + " гр");
+      k.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
+      b.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
+      z.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
+      u.setStyle("-fx-font-family: 'Inter'; -fx-font-weight: 500; -fx-font-size: 18px; -fx-text-fill: #1B8057;");
+      kbzu.getChildren().addAll(k, b, z, u);
+      kbzu.setSpacing(20);
+    }
 
     recipe_desc.getChildren().add(recipe_pane);
     recipe_desc_main.getChildren().addAll(recipe_desc, kbzu);

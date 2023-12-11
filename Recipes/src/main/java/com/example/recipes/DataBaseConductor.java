@@ -61,6 +61,7 @@ public class DataBaseConductor extends Configs {
 
     return resId.getInt(1);
   }
+
   public ArrayList<Ingredient> getAllIngredients() throws SQLException, ClassNotFoundException {
     ArrayList<Ingredient> allIngredients = new ArrayList<>();
     String getAllIngredientsQuery = "SELECT * FROM ingredients;";
@@ -290,6 +291,7 @@ public class DataBaseConductor extends Configs {
 
     return ingredsInfo;
   }
+
   public void insertIngredients(TmpRecipeClass recipe) throws SQLException, ClassNotFoundException {
     int recipeId = getRecipeId();
 
@@ -565,6 +567,18 @@ public class DataBaseConductor extends Configs {
     }
 
     return allFavRecipes;
+  }
+
+  public ArrayList<Integer> getAllUserRecipesID(String user) throws SQLException, ClassNotFoundException {
+    String query = "SELECT id FROM recipes WHERE author = '" + user + "'";
+    ArrayList<Integer> allAuthorRecipes = new ArrayList<>();
+    Statement statement = getDbConnection().createStatement();
+    ResultSet resIds = statement.executeQuery(query);
+    while (resIds.next()) {
+      allAuthorRecipes.add(resIds.getInt(1));
+    }
+
+    return allAuthorRecipes;
   }
 
   public Map<String, String> getUserCart(String user) throws SQLException, ClassNotFoundException {

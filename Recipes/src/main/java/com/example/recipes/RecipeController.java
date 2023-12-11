@@ -41,8 +41,6 @@ public class RecipeController {
   @FXML
   private ChoiceBox<String> category_list;
   @FXML
-  private Label steps_label;
-  @FXML
   private ImageView image;
   @FXML
   private Label difficult;
@@ -50,9 +48,7 @@ public class RecipeController {
   private Slider diff_slider;
   @FXML
   private AnchorPane create_recipes_widgets;
-  @FXML
-  private Button add_ingredients;
-  
+
   // Вертикальный виджет для рецептов
   @FXML
   private VBox ingredientsVBox;
@@ -157,13 +153,13 @@ public class RecipeController {
     }
   }
 
-  private final AtomicInteger i = new AtomicInteger();
+  private int i = 0;
   private void addStep(ObservableList<Node> list_to_ad)
   {
     FXMLLoader step_card = new FXMLLoader(getClass().getResource("step_card.fxml"));
 
     try {
-      i.getAndIncrement();
+      i++;
       Node step  = step_card.load();
       Label lb = (Label) step.lookup("#step_i");
       ImageView img = (ImageView) step.lookup("#step_photo");
@@ -173,6 +169,14 @@ public class RecipeController {
       list_to_ad.add(step);
     } catch (IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  private void removeStep(ObservableList<Node> list_to_remove) {
+    if (!list_to_remove.isEmpty()) {
+      int lastIndex = list_to_remove.size() - 1;
+      list_to_remove.remove(lastIndex);
+      i--;
     }
   }
 
@@ -330,10 +334,14 @@ public class RecipeController {
     });
 
     Button list_btn = new Button("Добавить шаг +");
-    create_recipes_widgets.getChildren().add(list_btn);
+    Button remove_step = new Button("Удалить последний шаг -");
+    create_recipes_widgets.getChildren().addAll(list_btn, remove_step);
     list_btn.setLayoutY(950);
     list_btn.setLayoutX(45);
+    remove_step.setLayoutY(950);
+    remove_step.setLayoutX(160);
     list_btn.setOnAction(event -> addStep(items));
+    remove_step.setOnAction(event -> removeStep(items));
 
 
     image.setOnMouseClicked(event -> openFile(image, dish_photo_HBox));
