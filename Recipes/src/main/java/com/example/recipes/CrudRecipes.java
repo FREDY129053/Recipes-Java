@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CrudRecipes {
   @FXML
@@ -40,7 +42,10 @@ public class CrudRecipes {
   // Вертикальный виджет для рецептов
   @FXML
   private VBox ingredientsVBox;
-
+  @FXML
+  private Button add_ingredients;
+  @FXML
+  private Button remove_ingredients;
   // Панель скролла для пролистывания ингредиентов
   @FXML
   private ScrollPane ingredients;
@@ -52,6 +57,10 @@ public class CrudRecipes {
   private TextField dish_name;
   @FXML
   private TextField cook_time;
+  HBox ingred = new HBox();
+  ComboBox<String> ingredient_count = new ComboBox<>();
+  ComboBox<String> ingredients_list = new ComboBox<>();
+  TextField int_ingredient = new TextField();
   private TmpRecipeClass recipe;
   private final String[] count = {"гр", "кг", "шт", "л", "мл", "чайн.л.", "стол.л.", "зубч."};
 
@@ -60,7 +69,44 @@ public class CrudRecipes {
     initializeCRUD();
   }
 
-  @FXML
+  private void addIngredients() throws SQLException, ClassNotFoundException, IOException {
+    DataBaseConductor dataBaseCon = new DataBaseConductor();
+    ArrayList<Ingredient> allIngredients = dataBaseCon.getAllIngredients();
+
+    // Если нет ингредиентов, то создается виджет куда добавлять
+    if (ingredientsVBox == null)
+    {
+      ingredientsVBox = new VBox();
+      ingredientsVBox.prefWidthProperty().bind(ingredients.widthProperty().subtract(2));
+      vertical_ingredients = new FlowPane();
+      vertical_ingredients.setStyle("-fx-border-width: 0;");
+      vertical_ingredients.setHgap(30);
+      vertical_ingredients.setVgap(10);
+      ingredientsVBox.getChildren().add(vertical_ingredients);
+      ingredients.setContent(ingredientsVBox);
+    }
+
+    // Создание выпадающих списков
+    ObservableList<String> count_list = FXCollections.observableArrayList(new ArrayList<>(Arrays.asList(count)));
+    ObservableList<String> ingredients_from_db = FXCollections.observableArrayList();
+
+    for (Ingredient ingredient : allIngredients) {
+      ingredients_from_db.add(ingredient.name);
+    }
+
+    // Поля для выбора ингредиентов, ввода кол-ва, выбора кол-ва
+    ComboBox<String> ingredients_list = new ComboBox<>(ingredients_from_db);
+    TextField int_ingredient = new TextField();
+    ComboBox<String> ingredient_count = new ComboBox<>(count_list);
+    ingredients_list.setPrefWidth(160);
+    int_ingredient.setPrefWidth(50);
+    int_ingredient.setAlignment(Pos.CENTER);
+    ingred = new HBox();
+
+    ingred.getChildren().addAll(ingredients_list, int_ingredient, ingredient_count);
+    vertical_ingredients.getChildren().add(ingred);
+  }
+
   private void removeIngredients()
   {
     if (vertical_ingredients != null)
@@ -234,6 +280,57 @@ public class CrudRecipes {
     ObservableList<String> categ_lst = FXCollections.observableArrayList(new DataBaseConductor().getAllCategory());
     category_list.getItems().addAll(categ_lst);
 
+    // CRUD ингредиентов
+    {
+      add_ingredients.setOnAction(event -> {
+        try {
+          addIngredients();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+          throw new RuntimeException(e);
+        }
+      });
+      remove_ingredients.setOnAction(event -> removeIngredients());
+
+      DataBaseConductor dataBaseCon = new DataBaseConductor();
+      ArrayList<Ingredient> allIngredients = dataBaseCon.getAllIngredients();
+      ingredientsVBox = new VBox();
+      ingredientsVBox.prefWidthProperty().bind(ingredients.widthProperty().subtract(2));
+      vertical_ingredients = new FlowPane();
+      vertical_ingredients.setStyle("-fx-border-width: 0;");
+      vertical_ingredients.setHgap(30);
+      vertical_ingredients.setVgap(10);
+      ingredientsVBox.getChildren().add(vertical_ingredients);
+      ingredients.setContent(ingredientsVBox);
+
+      ObservableList<String> count_list = FXCollections.observableArrayList(new ArrayList<>(Arrays.asList(count)));
+      ObservableList<String> ingredients_from_db = FXCollections.observableArrayList();
+
+      for (Ingredient ingredient : allIngredients) {
+        ingredients_from_db.add(ingredient.name);
+      }
+
+      // Поля для выбора ингредиентов, ввода кол-ва, выбора кол-ва
+      ingredient_count.setItems(count_list);
+      ingredients_list.setItems(ingredients_from_db);
+      ingredients_list.setPrefWidth(160);
+      int_ingredient.setPrefWidth(50);
+      int_ingredient.setAlignment(Pos.CENTER);
+      for (int i = 0; i < recipe.ingredients_name.size(); i++) {
+        ComboBox<String> ingredients_list = new ComboBox<>(ingredients_from_db);
+        TextField int_ingredient = new TextField();
+        ComboBox<String> ingredient_count = new ComboBox<>(count_list);
+        ingredient_count.setValue(recipe.ingredients_v.get(i));
+        ingredients_list.setValue(recipe.ingredients_name.get(i));
+        int_ingredient.setText(recipe.ingredients_count.get(i));
+        HBox ingred = new HBox();
+        ingred.getChildren().addAll(ingredients_list, int_ingredient, ingredient_count);
+        vertical_ingredients.getChildren().add(ingred);
+      }
+    }
+
+
+
+    // Шаги
     ListView<Node> listView = new ListView<>();
     listView.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
       @Override
@@ -243,6 +340,8 @@ public class CrudRecipes {
     });
 
     ObservableList<Node> items = FXCollections.observableArrayList();
+
+
 
     listView.setItems(items);
     listView.setPrefHeight(300);
