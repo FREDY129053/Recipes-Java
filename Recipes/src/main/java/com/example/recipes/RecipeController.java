@@ -300,6 +300,8 @@ public class RecipeController {
   }
 
   public void initializeWithUser() throws IOException, SQLException, ClassNotFoundException {
+    ingredients.setStyle("-fx-background-color:#F1F0D0; -fx-border-weight: 0;");
+
     ObservableList<String> categ_lst = FXCollections.observableArrayList(new DataBaseConductor().getAllCategory());
     category_list.getItems().addAll(categ_lst);
 
@@ -322,6 +324,7 @@ public class RecipeController {
     listView.setLayoutX(45);
 
     Button create_recipe = new Button("Превью рецепта");
+    create_recipe.setStyle("-fx-background-color: none; -fx-text-fill: #1B8057; -fx-border-color: #1B8057; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;");
     create_recipes_widgets.getChildren().add(create_recipe);
     create_recipe.setLayoutX(350);
     create_recipe.setLayoutY(1000);

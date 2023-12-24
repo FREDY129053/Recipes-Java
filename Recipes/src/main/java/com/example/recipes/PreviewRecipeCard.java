@@ -61,6 +61,24 @@ public class PreviewRecipeCard {
     return downloadedFiles;
   }
 
+  public ArrayList<String> downloadAllPhotos(String path) throws IOException {
+    ArrayList<String> paths = new ArrayList<>();
+    paths.add(path);
+
+    ArrayList<String> downloadedFiles = new ArrayList<>();
+
+    for (String i : paths) {
+      URL imageURL = new URL(i);
+      BufferedImage tmpImage =ImageIO.read(imageURL);
+      String file = "recipes_photos/" + System.currentTimeMillis() + ".jpg";
+      File output = new File(file);
+      ImageIO.write(tmpImage, "jpg", output);
+      downloadedFiles.add(output.getPath());
+    }
+
+    return downloadedFiles;
+  }
+
   /** @noinspection OptionalGetWithoutIsPresent*/
   public void create_window()
   {

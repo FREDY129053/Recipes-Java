@@ -7,13 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #86C181; -fx-border-color: #00000038;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.recipes.EnterForm">
    <children>
       <TextField fx:id="login" layoutX="107.0" layoutY="125.0" prefHeight="25.0" prefWidth="290.0" promptText="Введите логин" />
       <TextField fx:id="password" layoutX="107.0" layoutY="207.0" prefHeight="25.0" prefWidth="290.0" promptText="Введите пароль" />
-      <Label layoutX="151.0" layoutY="366.0" text="Нет аккаунта?" />
-      <Hyperlink fx:id="reg_link" layoutX="241.0" layoutY="363.0" text="Зарегестрируйтесь" />
+      <Label layoutX="128.0" layoutY="358.0" text="Нет аккаунта?">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Hyperlink fx:id="reg_link" layoutX="235.0" layoutY="351.0" text="Зарегестрируйтесь">
+         <font>
+            <Font size="18.0" />
+         </font></Hyperlink>
       <Label layoutX="214.0" layoutY="23.0" style="-fx-font-weight: 700; -fx-text-fill: #000000A6;" text="ВХОД">
          <font>
             <Font size="18.0" />
@@ -29,7 +34,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="enter_btn" layoutX="215.0" layoutY="299.0" mnemonicParsing="false" text="Войти" />
+      <Button fx:id="enter_btn" layoutX="186.0" layoutY="282.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Войти" />
       <Label fx:id="error_label" alignment="CENTER" layoutX="89.0" layoutY="262.0" prefHeight="20.0" prefWidth="355.0" textFill="#f50101">
          <font>
             <Font size="14.0" />

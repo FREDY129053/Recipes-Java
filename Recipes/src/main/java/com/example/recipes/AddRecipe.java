@@ -46,6 +46,7 @@ public class AddRecipe {
           throw new RuntimeException(e);
         }
       });
+      handle_recipe.setStyle("-fx-background-color: none; -fx-text-fill: #1B8057; -fx-border-color: #1B8057; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;");
 
       auto_recipe_btn.setOnAction(openParserEditor -> {
         Parser parse = new Parser(url_address.getText());
@@ -75,5 +76,6 @@ public class AddRecipe {
           }
         }
       });
+      auto_recipe_btn.setStyle("-fx-background-color: none; -fx-text-fill: #1B8057; -fx-border-color: #1B8057; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;");
   }
 }

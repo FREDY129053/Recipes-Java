@@ -19,7 +19,7 @@ public class RecipeApplication extends Application {
     contr.initialize1();
 
 
-    stage.setTitle("Hello!");
+    stage.setTitle("Менеджер рецептов");
     stage.setScene(new Scene(root));
     stage.show();
   }

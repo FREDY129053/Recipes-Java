@@ -48,6 +48,7 @@ public class RegForm implements Initializable {
 
     Stage stage = new Stage();
     stage.setScene(new Scene(root));
+    stage.setTitle("Вход");
     stage.show();
     curr_stage.close();
   }
@@ -81,6 +82,7 @@ public class RegForm implements Initializable {
       }
     });
 
+    reg_btn.setStyle("-fx-background-color: none; -fx-text-fill: #1B8057; -fx-border-color: #1B8057; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;");
     reg_btn.setOnAction(e -> {
       try {
         regUser();

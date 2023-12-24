@@ -16,11 +16,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,10 +64,12 @@ public class CrudRecipes {
   ComboBox<String> ingredients_list = new ComboBox<>();
   TextField int_ingredient = new TextField();
   private TmpRecipeClass recipe;
+  private String user;
   private final String[] count = {"гр", "кг", "шт", "л", "мл", "чайн.л.", "стол.л.", "зубч."};
 
-  public void setRecipe(TmpRecipeClass recipe) throws SQLException, IOException, ClassNotFoundException {
+  public void setRecipe(TmpRecipeClass recipe, String user) throws SQLException, IOException, ClassNotFoundException {
     this.recipe = recipe;
+    this.user = user;
     initializeCRUD();
   }
 
@@ -270,7 +274,7 @@ public class CrudRecipes {
       }
     }
     TmpRecipeClass finalRecipe = new TmpRecipeClass(imageURL, dish_name_str, cook_time_str, category, difficult, ingredients_names, ingredients_count, ingredients_v, steps_descriptions, steps_photo);
-
+    finalRecipe.setAuthor(user);
     finalRecipe.setCalInfo(recipeCal, recipeFats, recipeProtein, recipeCarb);
 
     return finalRecipe;
@@ -341,7 +345,53 @@ public class CrudRecipes {
 
     ObservableList<Node> items = FXCollections.observableArrayList();
 
+    // CRUD шагов
+    try {
+      for (var entry : recipe.steps.entrySet()) {
+        FXMLLoader stepL = new FXMLLoader(getClass().getResource("step_card.fxml"));
+        i++;
+        Node step = stepL.load();
+        Label lb = (Label) step.lookup("#step_i");
+        ImageView img = (ImageView) step.lookup("#step_photo");
+        TextArea desc = (TextArea) step.lookup("#step_desc");
+        HBox delBorder = (HBox) step.lookup("#step_photo_HBox");
+        img.setOnMouseClicked(event1 -> openFile(img, delBorder));
+        lb.setText("Шаг " + i);
+        File photoFile = new File(entry.getValue());
+        URL fileUrl = photoFile.toURI().toURL();
+        img.setImage(new Image(fileUrl.toString()));
+        desc.setText(entry.getKey());
+        items.add(step);
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
 
+    Button create_recipe = new Button("Изменить рецепт");
+    create_recipes_widgets.getChildren().add(create_recipe);
+    create_recipe.setLayoutX(350);
+    create_recipe.setLayoutY(1000);
+    create_recipe.setOnAction(event -> {
+      DataBaseConductor db = null;
+      try {
+        db = new DataBaseConductor();
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+      try {
+        var newRecipe = getRecipeItems();
+
+        PreviewRecipeCard download = new PreviewRecipeCard();
+        newRecipe.recipe_main_photo = download.downloadAllPhotos(newRecipe.recipe_main_photo).get(0);
+
+
+        db.updateRecipe(newRecipe, recipe.recipe_name);
+        Stage curr = (Stage) create_recipe.getScene().getWindow();
+        curr.close();
+      } catch (IOException | SQLException | ClassNotFoundException e) {
+        throw new RuntimeException(e);
+      }
+    });
 
     listView.setItems(items);
     listView.setPrefHeight(300);
@@ -380,6 +430,12 @@ public class CrudRecipes {
     diff_slider.setMax(3);
     diff_slider.setBlockIncrement(1);
     diff_slider.setShowTickLabels(true);
+
+    switch (recipe.difficult) {
+      case ("Легко") -> diff_slider.setValue(1.0);
+      case ("Средне") -> diff_slider.setValue(2.1);
+      case ("Тяжело") -> diff_slider.setValue(3.0);
+    }
     // Считывание динамического изменения ползунка
     diff_slider.valueProperty().addListener(new ChangeListener<Number>() {
       @Override

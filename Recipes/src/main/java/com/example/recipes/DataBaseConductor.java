@@ -344,7 +344,7 @@ public class DataBaseConductor extends Configs {
       ArrayList<String> stepPhoto = new ArrayList<>();
 
       int recipe_id = result.getInt(1);
-      if (recipe_id == 17 || recipe_id == 18) {
+      if (recipe_id == 17 || recipe_id == 18 || recipe_id == 19) {
         continue;
       }
       String recipe_name = result.getString(2);
@@ -591,5 +591,20 @@ public class DataBaseConductor extends Configs {
     }
 
     return cart;
+  }
+
+  public void updateRecipe(TmpRecipeClass recipeNew, String oldName) throws SQLException, ClassNotFoundException {
+    int recipeId = getRecipeIdByName(oldName);
+
+    String query = "UPDATE recipes SET name = ?, photo = ?, time_to_cook = ?, difficult = ?, category = ? WHERE id = ?";
+    PreparedStatement statement = getDbConnection().prepareStatement(query);
+    statement.setString(1, recipeNew.recipe_name);
+    statement.setString(2, recipeNew.recipe_main_photo);
+    statement.setInt(3, recipeNew.cook_time);
+    statement.setString(4, recipeNew.difficult);
+    statement.setString(5, recipeNew.category);
+    statement.setInt(6, recipeId);
+
+    statement.executeUpdate();
   }
 }

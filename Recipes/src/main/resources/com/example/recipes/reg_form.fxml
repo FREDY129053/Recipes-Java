@@ -7,13 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #86C181;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.recipes.RegForm">
    <children>
       <TextField fx:id="login" layoutX="119.0" layoutY="110.0" prefHeight="25.0" prefWidth="290.0" promptText="Введите логин" />
       <TextField fx:id="pass1" layoutX="117.0" layoutY="181.0" prefHeight="25.0" prefWidth="290.0" promptText="Введите пароль(4 символа минимум)" />
-      <Label layoutX="199.0" layoutY="373.0" text="Есть аккаунт?" />
-      <Hyperlink fx:id="enter_link" layoutX="289.0" layoutY="370.0" text="Войти" />
+      <Label layoutX="184.0" layoutY="374.0" text="Есть аккаунт?">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Hyperlink fx:id="enter_link" layoutX="289.0" layoutY="367.0" text="Войти">
+         <font>
+            <Font size="18.0" />
+         </font></Hyperlink>
       <Label layoutX="115.0" layoutY="69.0" style="-fx-font-weight: 700; -fx-text-fill: #000000A6;" text="Логин">
          <font>
             <Font size="18.0" />

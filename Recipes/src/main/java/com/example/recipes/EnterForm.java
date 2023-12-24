@@ -41,6 +41,7 @@ public class EnterForm implements Initializable {
 
     Stage stage = new Stage();
     stage.setScene(new Scene(root));
+    stage.setTitle("Регистрация");
     stage.show();
     curr_stage.close();
   }
@@ -69,7 +70,7 @@ public class EnterForm implements Initializable {
         throw new RuntimeException(e);
       }
     });
-
+    enter_btn.setStyle("-fx-background-color: none; -fx-text-fill: #1B8057; -fx-border-color: #1B8057; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;");
     enter_btn.setOnAction(e -> {
       try {
         enterCheck();

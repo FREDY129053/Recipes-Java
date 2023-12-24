@@ -55,7 +55,10 @@ public class ShowDetailRecipe {
     Pane recipe_desc_main = new Pane();
     HBox recipe_desc = new HBox();
 //    recipe_desc.setPrefWidth(690);
-
+    full_window.setStyle("-fx-background-color: #F1F0D0;");
+    main_Vbox.setStyle("-fx-background-color: #F1F0D0;");
+    recipe_desc.setStyle("-fx-background-color: #F1F0D0;");
+    recipe_desc.setStyle("-fx-background-color: #F1F0D0;");
     Pane recipe_pane = new Pane();
 
     File file = new File(recipe.recipe_main_photo);
@@ -221,10 +224,11 @@ public class ShowDetailRecipe {
           throw new RuntimeException(e);
         }
       });
+      add.setStyle("-fx-background-color: none; -fx-text-fill: #1B8057; -fx-border-color: #1B8057; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;");
 
       Button changeRecipe = new Button("Изменить рецепт");
       changeRecipe.setFocusTraversable(false);
-
+      changeRecipe.setStyle("-fx-background-color: none; -fx-text-fill: #1B8057; -fx-border-color: #1B8057; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;");
       if (!Objects.equals(user, recipe.author)) {
         changeRecipe.setVisible(false);
       } else {
@@ -239,7 +243,7 @@ public class ShowDetailRecipe {
           }
           CrudRecipes controller = loader.getController();
           try {
-            controller.setRecipe(recipe);
+            controller.setRecipe(recipe, user);
           } catch (SQLException | IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
           }

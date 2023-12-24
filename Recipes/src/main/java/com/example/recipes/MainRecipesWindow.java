@@ -47,6 +47,7 @@ public class MainRecipesWindow {
 
     Stage stage = new Stage();
     stage.setScene(new Scene(root));
+    stage.setTitle("Вход");
     stage.show();
   }
 
@@ -78,18 +79,20 @@ public class MainRecipesWindow {
     }
     cards.getChildren().clear();
     DataBaseConductor dataBase = new DataBaseConductor();
-
+    String styleBtn = "-fx-background-color: none; -fx-text-fill: #1B8057; -fx-border-color: #1B8057; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;";
     if (user == null)
     {
       logining_user_options.getChildren().clear();
       logining_user_options.getChildren().add(enter_btn);
       enter_btn.setText("Войти");
+      enter_btn.setStyle(styleBtn);
     }
     else
     {
       logining_user_options.getChildren().clear();
 
       Button logOut = new Button("Выйти");
+      logOut.setStyle(styleBtn);
       logOut.setOnAction(event -> {
         user = null;
         try {
@@ -100,6 +103,7 @@ public class MainRecipesWindow {
       });
 
       Button favorites = new Button("Избранное");
+      favorites.setStyle(styleBtn);
       favorites.setOnAction(event -> {
         try {
           var allFav = dataBase.getAllFavRecipesID(user);
@@ -119,8 +123,13 @@ public class MainRecipesWindow {
             drawer.clearNode(pane);
             drawer.drawAllRecipes(recipes, pane, user, false);
           } else {
-            pane.getChildren().add(new Label("Нет Избранных рецептов!"));
+            Label tmp = new Label("Нет Избранных рецептов!");
+            tmp.setStyle("-fx-font-family: 'Inter'; -fx-font-size: 26px; -fx-text-fill: #FF0700;");
+            pane.getChildren().add(tmp);
           }
+          pane.setStyle("-fx-background-color: #F1F0D0;");
+          paneMain.setStyle("-fx-background-color: #F1F0D0;");
+          scroll.setStyle("-fx-background-color: #F1F0D0;");
 
           paneMain.getChildren().add(pane);
           scroll.setContent(paneMain);
@@ -133,21 +142,26 @@ public class MainRecipesWindow {
       });
 
       Button cart = new Button("Корзина");
+      cart.setStyle(styleBtn);
       cart.setOnAction(event -> {
         try {
           var cartUser = dataBase.getUserCart(user);
           Stage stage = new Stage();
-//          FlowPane pane = new FlowPane();
           VBox paneMain = new VBox();
           VBox ofHbox = new VBox();
           VBox.setMargin(ofHbox, new Insets(15, 0, 0, 60));
           ScrollPane scroll = new ScrollPane();
-
-          HBox ingredInfo = new HBox();
-          Label name = new Label();
+          ofHbox.setStyle("-fx-background-color: #F1F0D0;");
+          paneMain.setStyle("-fx-background-color: #F1F0D0;");
+          scroll.setStyle("-fx-background-color: #F1F0D0;");
 
           for (var ingredient : cartUser.entrySet()) {
-            HBox ingredInfoFromCart = new HBox(new Label(ingredient.getKey()), new Label(ingredient.getValue() + "гр."));
+            Label tmp1 = new Label(ingredient.getKey() + " --- " + ingredient.getValue() + "гр.");
+            tmp1.setStyle("-fx-font-family: 'Inter'; -fx-font-size: 20px; -fx-font-weight: 600; -fx-text-fill:  #1B8057;");
+
+            HBox ingredInfoFromCart = new HBox(tmp1);
+            ingredInfoFromCart.setStyle("-fx-background-color: #F1F0D0;");
+            ingredInfoFromCart.setSpacing(25);
             ofHbox.getChildren().add(ingredInfoFromCart);
           }
           paneMain.getChildren().add(ofHbox);
@@ -161,6 +175,7 @@ public class MainRecipesWindow {
       });
 
       Button addRecipe = new Button("Добавить рецепт +");
+      addRecipe.setStyle(styleBtn);
       addRecipe.setOnAction(ev -> {
         FXMLLoader add_recipe_window = new FXMLLoader(getClass().getResource("add_recipe.fxml"));
         try {
@@ -169,6 +184,7 @@ public class MainRecipesWindow {
           controllerToGetUser.getUser(user);
           Stage stage = new Stage();
           stage.setScene(new Scene(root));
+          stage.setTitle("Добавить рецепт");
           stage.show();
         } catch (IOException e) {
           throw new RuntimeException(e);
@@ -176,6 +192,7 @@ public class MainRecipesWindow {
       });
 
       Button myRecipes = new Button("Мои рецепты");
+      myRecipes.setStyle(styleBtn);
       myRecipes.setOnAction(event -> {
         try {
           var allAuthor = dataBase.getAllUserRecipesID(user);
@@ -189,6 +206,8 @@ public class MainRecipesWindow {
           Stage stage = new Stage();
           FlowPane pane = new FlowPane();
           VBox paneMain = new VBox();
+          pane.setStyle("-fx-background-color: #F1F0D0;");
+          paneMain.setStyle("-fx-background-color: #F1F0D0;");
 
           VBox.setMargin(pane, new Insets(15, 0, 0, 60));
           ScrollPane scroll = new ScrollPane();
@@ -198,10 +217,18 @@ public class MainRecipesWindow {
             drawer.clearNode(pane);
             drawer.drawAllRecipes(recipes, pane, user, false);
           } else {
-            pane.getChildren().add(new Label("Нет Созданных рецептов!"));
+            paneMain.setStyle("-fx-background-color: #F1F0D0;");
+            Label tmp = new Label("Нет Созданных рецептов!");
+            tmp.setStyle("-fx-font-family: 'Inter'; -fx-font-size: 26px; -fx-text-fill: #FF0700;");
+            pane.getChildren().add(tmp);
           }
+          paneMain.setStyle("-fx-background-color: #F1F0D0;");
 
           paneMain.getChildren().add(pane);
+          pane.setStyle("-fx-background-color: #F1F0D0;");
+          paneMain.setStyle("-fx-background-color: #F1F0D0;");
+          scroll.setStyle("-fx-background-color: #F1F0D0;");
+          scroll.setStyle("-fx-background-color: #F1F0D0;");
           scroll.setContent(paneMain);
           stage.setScene(new Scene(scroll, 430, 600));
           stage.setTitle("Мои рецепты");
@@ -212,6 +239,7 @@ public class MainRecipesWindow {
       });
 
       logining_user_options.getChildren().addAll(addRecipe, myRecipes, favorites, cart, logOut);
+      logining_user_options.setSpacing(10);
     }
 
     enter_btn.setOnAction(event -> {
@@ -261,6 +289,7 @@ public class MainRecipesWindow {
         throw new RuntimeException(e);
       }
     });
+    use_filters.setStyle("-fx-background-color: none; -fx-text-fill: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-radius: 15px; -fx-font-family: 'Inter'; -fx-font-size: 13px;");
 
     for (var i : categoriesToChoice) {
       MenuItem item = new MenuItem(i);
@@ -290,6 +319,14 @@ public class MainRecipesWindow {
         }
       });
       sort.getItems().add(item);
+    }
+
+    sort.setStyle(styleBtn);
+    category_choice.setStyle(styleBtn);
+
+    Parent tmp = cards.getParent();
+    if (tmp instanceof ScrollPane) {
+      tmp.setStyle("-fx-background-color: #F1F0D0;");
     }
   }
 }

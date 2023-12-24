@@ -48,6 +48,7 @@ public class Drawer {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 855, 600));
+            stage.setTitle(recipe.recipe_name);
             stage.show();
           } catch (IOException e) {
             throw new RuntimeException(e);
