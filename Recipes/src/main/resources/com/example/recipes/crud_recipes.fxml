@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.image.ImageView?>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.recipes.CrudRecipes">
+    <AnchorPane fx:id="create_recipes_widgets" minHeight="0.0" minWidth="0.0" prefHeight="671.0" prefWidth="784.0" style="-fx-background-color: #F1F0D0;">
+        <children>
+            <Label layoutX="305.0" layoutY="57.0" styleClass="title" stylesheets="@../../../../../target/styles/create_recipes.css" text="Название">
+                <font>
+                    <Font size="30.0" />
+                </font>
+            </Label>
+            <TextField fx:id="dish_name" layoutX="446.0" layoutY="67.0" styleClass="input" stylesheets="@../../../../../target/styles/create_recipes.css" />
+            <TextField fx:id="cook_time" layoutX="677.0" layoutY="67.0" prefHeight="25.0" prefWidth="93.0" promptText="в минутах" styleClass="input" stylesheets="@../../../../../target/styles/create_recipes.css" />
+            <SVGPath content="M533,374.184 L533,369 C533,368.448 532.553,368 532,368 C531.447,368 531,368.448 531,369 L531,374.184 C529.838,374.597 529,375.695 529,377 C529,378.657 530.343,380 532,380 C533.657,380 535,378.657 535,377 C535,375.695 534.162,374.597 533,374.184 L533,374.184 Z M532,388 C525.925,388 521,383.075 521,377 C521,370.925 525.925,366 532,366 C538.075,366 543,370.925 543,377 C543,383.075 538.075,388 532,388 L532,388 Z M532.99,364.05 C532.991,364.032 533,364.018 533,364 L533,362 L537,362 C537.553,362 538,361.553 538,361 C538,360.447 537.553,360 537,360 L527,360 C526.447,360 526,360.447 526,361 C526,361.553 526.447,362 527,362 L531,362 L531,364 C531,364.018 531.009,364.032 531.01,364.05 C524.295,364.558 519,370.154 519,377 C519,384.18 524.82,390 532,390 C539.18,390 545,384.18 545,377 C545,370.154 539.705,364.558 532.99,364.05 L532.99,364.05 Z" fill="#1b8057" layoutX="112.0" layoutY="-295.0" />
+            <Label layoutX="41.0" layoutY="204.0" styleClass="title" stylesheets="@../../../../../target/styles/create_recipes.css" text="Ингредиенты" />
+            <Button fx:id="add_ingredients" layoutX="43.0" layoutY="480.0" mnemonicParsing="false" styleClass="add_ingredient" stylesheets="@../../../../../target/styles/create_recipes.css" text="Добавить ингредиент +" />
+            <Button fx:id="remove_ingredients" layoutX="213.0" layoutY="480.0" mnemonicParsing="false" styleClass="add_ingredient" stylesheets="@../../../../../target/styles/create_recipes.css" text="Убрать ингредиент -" />
+            <ScrollPane fx:id="ingredients" layoutX="40.0" layoutY="260.0" prefHeight="200.0" prefWidth="710.0" stylesheets="@../../../../../target/styles/create_recipes.css" />
+            <Label fx:id="steps_label" layoutX="43.0" layoutY="541.0" styleClass="title" stylesheets="@../../../../../target/styles/create_recipes.css" text="ИНСТРУКЦИЯ ПРИГОТОВЛЕНИЯ" />
+            <Label layoutX="305.0" layoutY="113.0" styleClass="sub_title" stylesheets="@../../../../../target/styles/create_recipes.css" text="категория">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Label layoutX="547.0" layoutY="113.0" styleClass="sub_title" stylesheets="@../../../../../target/styles/create_recipes.css" text="сложность">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Slider fx:id="diff_slider" layoutX="668.0" layoutY="124.0" prefHeight="14.0" prefWidth="100.0" />
+            <Label fx:id="difficult" alignment="CENTER" contentDisplay="CENTER" layoutX="696.0" layoutY="153.0" prefHeight="17.0" prefWidth="45.0" text="Легко" />
+            <ChoiceBox fx:id="category_list" layoutX="420.0" layoutY="119.0" prefHeight="25.0" prefWidth="112.0" />
+            <HBox fx:id="dish_photo_HBox" layoutX="32.0" layoutY="20.0" prefHeight="165.0" prefWidth="225.0" style="-fx-border-color: black; -fx-border-width: 1px;">
+                <children>
+                    <ImageView fx:id="image" fitHeight="166.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true" />
+                </children>
+            </HBox>
+        </children>
+    </AnchorPane>
+</ScrollPane>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.recipes.StepCard">
+   <children>
+      <Label fx:id="step_i" layoutX="14.0" layoutY="14.0" text="Label" textFill="#1b8057">
+         <font>
+            <Font name="Inter Regular" size="20.0" />
+         </font></Label>
+      <TextArea fx:id="step_desc" layoutX="14.0" layoutY="50.0" prefHeight="220.0" prefWidth="230.0" promptText="Введите описание шага" wrapText="true">
+         <font>
+            <Font name="Ebrima" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextArea>
+      <HBox fx:id="step_photo_HBox" layoutX="286.0" layoutY="50.0" prefHeight="220.0" prefWidth="300.0" style="-fx-border-color: black; -fx-border-width: 1px;">
+         <children>
+            <ImageView fx:id="step_photo" fitHeight="220.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: black; -fx-border-width: 1px;" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

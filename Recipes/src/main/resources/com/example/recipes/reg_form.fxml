@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #86C181;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.recipes.RegForm">
+   <children>
+      <TextField fx:id="login" layoutX="119.0" layoutY="110.0" prefHeight="25.0" prefWidth="290.0" promptText="Введите логин" />
+      <TextField fx:id="pass1" layoutX="117.0" layoutY="181.0" prefHeight="25.0" prefWidth="290.0" promptText="Введите пароль(4 символа минимум)" />
+      <Label layoutX="184.0" layoutY="374.0" text="Есть аккаунт?">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Hyperlink fx:id="enter_link" layoutX="289.0" layoutY="367.0" text="Войти">
+         <font>
+            <Font size="18.0" />
+         </font></Hyperlink>
+      <Label layoutX="115.0" layoutY="69.0" style="-fx-font-weight: 700; -fx-text-fill: #000000A6;" text="Логин">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="reg_btn" layoutX="201.0" layoutY="334.0" mnemonicParsing="false" text="Зарегестрироваться" />
+      <TextField fx:id="pass2" layoutX="119.0" layoutY="255.0" prefHeight="25.0" prefWidth="290.0" promptText="Подтвердите пароль" />
+      <Label layoutX="204.0" layoutY="14.0" style="-fx-font-weight: 700; -fx-text-fill: #000000A6;" text="РГЕСТРАЦИЯ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="117.0" layoutY="148.0" style="-fx-font-weight: 700; -fx-text-fill: #000000A6;" text="Пароль">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="119.0" layoutY="219.0" style="-fx-font-weight: 700; -fx-text-fill: #000000A6;" text="Подтвердите пароль" textFill="#362e2e">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="error_label" alignment="CENTER" layoutX="160.0" layoutY="306.0" prefHeight="17.0" prefWidth="191.0" textFill="#e80000" />
+   </children>
+</AnchorPane>
